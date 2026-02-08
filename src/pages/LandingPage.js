@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   Container,
   Box,
@@ -15,9 +15,7 @@ import {
   ListItem,
   ListItemButton,
   ListItemText,
-  TextField,
   Divider,
-  Chip,
   Paper,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
@@ -29,73 +27,13 @@ import SpeedIcon from '@mui/icons-material/Speed';
 import SecurityIcon from '@mui/icons-material/Security';
 import CloudDoneIcon from '@mui/icons-material/CloudDone';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import EmailIcon from '@mui/icons-material/Email';
-import PhoneIcon from '@mui/icons-material/Phone';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import TwitterIcon from '@mui/icons-material/Twitter';
-import FacebookIcon from '@mui/icons-material/Facebook';
+import Logo from '../components/Logo';
 
 const LandingPage = () => {
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [statsAnimated, setStatsAnimated] = useState(false);
-  const [animatedStats, setAnimatedStats] = useState({
-    institutions: 0,
-    students: 0,
-    certificates: 0,
-  });
 
-  // Target stats
-  const targetStats = {
-    institutions: 150,
-    students: 50000,
-    certificates: 75000,
-  };
 
-  useEffect(() => {
-    // Trigger animation when component mounts
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && !statsAnimated) {
-          setStatsAnimated(true);
-          animateStats();
-        }
-      },
-      { threshold: 0.5 }
-    );
-
-    const statsElement = document.getElementById('stats-section');
-    if (statsElement) {
-      observer.observe(statsElement);
-    }
-
-    return () => observer.disconnect();
-  }, [statsAnimated]);
-
-  const animateStats = () => {
-    const duration = 2000; // 2 seconds
-    const steps = 60;
-    const stepDuration = duration / steps;
-
-    let currentStep = 0;
-
-    const interval = setInterval(() => {
-      currentStep++;
-      const progress = currentStep / steps;
-
-      setAnimatedStats({
-        institutions: Math.floor(targetStats.institutions * progress),
-        students: Math.floor(targetStats.students * progress),
-        certificates: Math.floor(targetStats.certificates * progress),
-      });
-
-      if (currentStep >= steps) {
-        clearInterval(interval);
-        setAnimatedStats(targetStats);
-      }
-    }, stepDuration);
-  };
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
@@ -161,37 +99,37 @@ const LandingPage = () => {
   const features = [
     {
       icon: <SecurityIcon sx={{ fontSize: 50 }} />,
-      title: 'Blockchain Security',
-      description: 'Certificates secured on Polygon blockchain ensuring immutability and permanent verification.',
+      title: 'Verifiable Credentials',
+      description: 'Degrees issued as verifiable credentials on sustainable Polygon blockchain, ensuring immutability and permanent verification.',
     },
     {
       icon: <SpeedIcon sx={{ fontSize: 50 }} />,
-      title: 'Instant Verification',
-      description: 'Verify certificates in seconds with QR codes and shareable links.',
+      title: 'One-Click Verification',
+      description: 'Employers and institutions verify credentials instantly. Zero delays, zero paperwork.',
     },
     {
       icon: <CloudDoneIcon sx={{ fontSize: 50 }} />,
-      title: 'Cloud-Based Platform',
-      description: 'Access from anywhere, anytime. No installation required.',
+      title: 'Portable Digital Credentials',
+      description: 'Students securely store and share credentials from their FARO profile anywhere, anytime.',
     },
     {
       icon: <VerifiedUserIcon sx={{ fontSize: 50 }} />,
-      title: 'Tamper-Proof',
-      description: 'Blockchain technology ensures certificates cannot be forged or altered.',
+      title: 'Zero Re-Verification Costs',
+      description: 'One issuance. Lifetime verification. Eliminate expensive re-verification processes forever.',
     },
     {
       icon: <BusinessIcon sx={{ fontSize: 50 }} />,
-      title: 'Multi-Institution',
-      description: 'Support for multiple educational institutions and organizations.',
+      title: 'Trust Network',
+      description: 'Turning students into a trust network. Sold to universities, adopted by students, used by employers.',
     },
     {
       icon: <SchoolIcon sx={{ fontSize: 50 }} />,
-      title: 'Student Portal',
+      title: 'Student Empowerment',
       description: 'Students can access, download, and share their certificates anytime.',
     },
   ];
 
-  const menuItems = ['Home', 'Features', 'Pricing', 'About', 'Contact'];
+  const menuItems = ['Home', 'Features', 'About'];
 
   return (
     <Box sx={{ minHeight: '100vh' }}>
@@ -199,10 +137,7 @@ const LandingPage = () => {
       <AppBar position="sticky" sx={{ bgcolor: 'white', color: 'text.primary', boxShadow: 1 }}>
         <Toolbar>
           <Box sx={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
-            <SchoolIcon sx={{ fontSize: 40, color: 'primary.main', mr: 1 }} />
-            <Typography variant="h5" fontWeight="bold" color="primary">
-              FARO
-            </Typography>
+            <Logo height={100} />
           </Box>
           
           {/* Desktop Menu */}
@@ -226,7 +161,7 @@ const LandingPage = () => {
             <Button
               variant="contained"
               onClick={() => navigate('/student/auth')}
-              sx={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}
+              sx={{ background: 'linear-gradient(135deg, #0016AA 0%, #3345C0 100%)' }}
             >
               Student Login
             </Button>
@@ -272,7 +207,7 @@ const LandingPage = () => {
       <Box
         id="home"
         sx={{
-          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+          background: 'linear-gradient(135deg, #0016AA 0%, #3345C0 100%)',
           color: 'white',
           py: { xs: 8, md: 15 },
           position: 'relative',
@@ -325,7 +260,7 @@ const LandingPage = () => {
                   },
                 }}
               >
-                Blockchain-Powered Certificate Management
+                The Future of Academic Credentials
               </Typography>
               <Typography
                 variant="h5"
@@ -335,7 +270,7 @@ const LandingPage = () => {
                   animation: 'slideInLeft 1s ease-out 0.2s both',
                 }}
               >
-                Issue, verify, and manage tamper-proof digital certificates secured on the blockchain
+                Blockchain-verified degrees that turn students into a trusted network. One issuance. Lifetime verification. Zero re-verification costs.
               </Typography>
               <Box
                 sx={{
@@ -410,123 +345,221 @@ const LandingPage = () => {
         </Container>
       </Box>
 
-      {/* Stats Section */}
-      <Box
-        id="stats-section"
-        sx={{
-          py: 6,
-          bgcolor: '#f8f9fa',
-        }}
-      >
+      <Box sx={{ py: 10, bgcolor: '#fff3e0' }}>
         <Container maxWidth="lg">
-          <Grid container spacing={4}>
-            <Grid item xs={12} md={4}>
-              <Card
-                elevation={0}
-                sx={{
-                  textAlign: 'center',
-                  p: 3,
-                  bgcolor: 'transparent',
-                  border: '2px solid',
-                  borderColor: 'primary.main',
-                  transition: 'transform 0.3s',
-                  '&:hover': { transform: 'translateY(-10px)' },
-                }}
-              >
-                <BusinessIcon sx={{ fontSize: 60, color: 'primary.main', mb: 2 }} />
-                <Typography variant="h3" fontWeight="bold" color="primary">
-                  {animatedStats.institutions.toLocaleString()}+
-                </Typography>
-                <Typography variant="h6" color="text.secondary">
-                  Institutions
-                </Typography>
-              </Card>
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <Card
-                elevation={0}
-                sx={{
-                  textAlign: 'center',
-                  p: 3,
-                  bgcolor: 'transparent',
-                  border: '2px solid',
-                  borderColor: 'secondary.main',
-                  transition: 'transform 0.3s',
-                  '&:hover': { transform: 'translateY(-10px)' },
-                }}
-              >
-                <SchoolIcon sx={{ fontSize: 60, color: 'secondary.main', mb: 2 }} />
-                <Typography variant="h3" fontWeight="bold" color="secondary">
-                  {animatedStats.students.toLocaleString()}+
-                </Typography>
-                <Typography variant="h6" color="text.secondary">
-                  Students
-                </Typography>
-              </Card>
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <Card
-                elevation={0}
-                sx={{
-                  textAlign: 'center',
-                  p: 3,
-                  bgcolor: 'transparent',
-                  border: '2px solid',
-                  borderColor: 'success.main',
-                  transition: 'transform 0.3s',
-                  '&:hover': { transform: 'translateY(-10px)' },
-                }}
-              >
-                <VerifiedUserIcon sx={{ fontSize: 60, color: 'success.main', mb: 2 }} />
-                <Typography variant="h3" fontWeight="bold" color="success.main">
-                  {animatedStats.certificates.toLocaleString()}+
-                </Typography>
-                <Typography variant="h6" color="text.secondary">
-                  Certificates Issued
-                </Typography>
-              </Card>
-            </Grid>
-          </Grid>
+          <Typography variant="h3" fontWeight="bold" textAlign="center" gutterBottom>
+            The Problem: 2026 Students, 1990s Infrastructure
+          </Typography>
+          <Typography variant="h6" textAlign="center" color="text.secondary" sx={{ mb: 6, maxWidth: 900, mx: 'auto' }}>
+            Higher education is managing today's students with outdated infrastructure. Universities lose visibility, trust, and verified connection with students at every critical stage, from admissions through alumni engagement.
+          </Typography>
+          
+          <Box sx={{ display: 'flex', gap: 3, flexWrap: 'wrap', justifyContent: 'center', mt: 4 }}>
+            <Card elevation={3} sx={{ p: 4, maxWidth: 360, textAlign: 'center', bgcolor: '#fff', transition: 'transform 0.3s, box-shadow 0.3s', '&:hover': { transform: 'translateY(-8px)', boxShadow: 6 } }}>
+              <Box sx={{ fontSize: 60, mb: 2 }}>📄</Box>
+              <Typography variant="h6" color="error" fontWeight="bold" gutterBottom>
+                Manual Verification Crisis
+              </Typography>
+              <Typography variant="body1" color="text.secondary">
+                Universities spend significant resources on manual re-verification. WES alone processes over one million credential evaluations annually.
+              </Typography>
+            </Card>
+            <Card elevation={3} sx={{ p: 4, maxWidth: 360, textAlign: 'center', bgcolor: '#fff', transition: 'transform 0.3s, box-shadow 0.3s', '&:hover': { transform: 'translateY(-8px)', boxShadow: 6 } }}>
+              <Box sx={{ fontSize: 60, mb: 2 }}>🚨</Box>
+              <Typography variant="h6" color="error" fontWeight="bold" gutterBottom>
+                Credential Fraud Epidemic
+              </Typography>
+              <Typography variant="body1" color="text.secondary">
+                Forged transcripts and fake degrees represent a multi-billion dollar global problem that undermines institutional credibility.
+              </Typography>
+            </Card>
+            <Card elevation={3} sx={{ p: 4, maxWidth: 360, textAlign: 'center', bgcolor: '#fff', transition: 'transform 0.3s, box-shadow 0.3s', '&:hover': { transform: 'translateY(-8px)', boxShadow: 6 } }}>
+              <Box sx={{ fontSize: 60, mb: 2 }}>💰</Box>
+              <Typography variant="h6" color="error" fontWeight="bold" gutterBottom>
+                Hidden Verification Costs
+              </Typography>
+              <Typography variant="body1" color="text.secondary">
+                Trust in higher education is outsourced, duplicated, manual, and expensive. The current system drains resources and slows decisions.
+              </Typography>
+            </Card>
+          </Box>
+        </Container>
+      </Box>
+
+      <Box sx={{ py: 10, bgcolor: '#e8f5e9' }}>
+        <Container maxWidth="lg">
+          <Typography variant="h3" fontWeight="bold" textAlign="center" gutterBottom>
+            The Solution: FARO's Trust Infrastructure
+          </Typography>
+          <Typography variant="h6" textAlign="center" color="text.secondary" sx={{ mb: 6, maxWidth: 900, mx: 'auto' }}>
+            One issuance. Lifetime verification. Zero re-verification costs.
+          </Typography>
+          
+          <Box sx={{ display: 'flex', gap: 4, flexWrap: 'wrap', justifyContent: 'center', mt: 4 }}>
+            <Paper elevation={4} sx={{ p: 4, maxWidth: 340, textAlign: 'center', bgcolor: 'white', borderRadius: 3, transition: 'transform 0.3s, box-shadow 0.3s', '&:hover': { transform: 'translateY(-8px)', boxShadow: 8 } }}>
+              <Box sx={{ bgcolor: 'primary.main', color: 'white', borderRadius: '50%', width: 70, height: 70, display: 'flex', alignItems: 'center', justifyContent: 'center', mx: 'auto', mb: 3, fontSize: 28, fontWeight: 'bold', boxShadow: 2 }}>1</Box>
+              <Typography variant="h5" fontWeight="bold" gutterBottom color="primary">
+                Issue Credentials
+              </Typography>
+              <Typography variant="body1" color="text.secondary" sx={{ lineHeight: 1.7 }}>
+                Degree issued as a verifiable credential on sustainable Polygon blockchain
+              </Typography>
+            </Paper>
+            <Paper elevation={4} sx={{ p: 4, maxWidth: 340, textAlign: 'center', bgcolor: 'white', borderRadius: 3, transition: 'transform 0.3s, box-shadow 0.3s', '&:hover': { transform: 'translateY(-8px)', boxShadow: 8 } }}>
+              <Box sx={{ bgcolor: 'primary.main', color: 'white', borderRadius: '50%', width: 70, height: 70, display: 'flex', alignItems: 'center', justifyContent: 'center', mx: 'auto', mb: 3, fontSize: 28, fontWeight: 'bold', boxShadow: 2 }}>2</Box>
+              <Typography variant="h5" fontWeight="bold" gutterBottom color="primary">
+                Student Stores
+              </Typography>
+              <Typography variant="body1" color="text.secondary" sx={{ lineHeight: 1.7 }}>
+                Student securely stores credentials in their FARO profile, portable and always accessible
+              </Typography>
+            </Paper>
+            <Paper elevation={4} sx={{ p: 4, maxWidth: 340, textAlign: 'center', bgcolor: 'white', borderRadius: 3, transition: 'transform 0.3s, box-shadow 0.3s', '&:hover': { transform: 'translateY(-8px)', boxShadow: 8 } }}>
+              <Box sx={{ bgcolor: 'primary.main', color: 'white', borderRadius: '50%', width: 70, height: 70, display: 'flex', alignItems: 'center', justifyContent: 'center', mx: 'auto', mb: 3, fontSize: 28, fontWeight: 'bold', boxShadow: 2 }}>3</Box>
+              <Typography variant="h5" fontWeight="bold" gutterBottom color="primary">
+                Instant Verification
+              </Typography>
+              <Typography variant="body1" color="text.secondary" sx={{ lineHeight: 1.7 }}>
+                Employers and institutions verify credentials instantly with one click
+              </Typography>
+            </Paper>
+          </Box>
         </Container>
       </Box>
 
       {/* Features Section */}
       <Box id="features" sx={{ py: 10, bgcolor: 'white' }}>
-        <Container maxWidth="lg">
+        <Container maxWidth="xl">
           <Typography variant="h3" fontWeight="bold" textAlign="center" gutterBottom>
-            Why Choose FARO?
+            Why Universities Choose FARO
           </Typography>
           <Typography variant="h6" textAlign="center" color="text.secondary" sx={{ mb: 6 }}>
-            Secure, scalable, and simple certificate management platform
+            Empowering students with portable, verified credentials creates a network effect that benefits all stakeholders
           </Typography>
 
-          <Grid container spacing={4}>
+          <Box sx={{ display: 'flex', gap: 3, overflowX: 'auto', pb: 2, justifyContent: 'center', flexWrap: 'wrap' }}>
             {features.map((feature, index) => (
-              <Grid item xs={12} md={4} key={index}>
-                <Card
-                  elevation={2}
-                  sx={{
-                    height: '100%',
-                    p: 3,
-                    textAlign: 'center',
-                    transition: 'transform 0.3s, box-shadow 0.3s',
-                    '&:hover': {
-                      transform: 'translateY(-10px)',
-                      boxShadow: 6,
-                    },
-                  }}
-                >
-                  <Box sx={{ color: 'primary.main', mb: 2 }}>{feature.icon}</Box>
-                  <Typography variant="h5" fontWeight="bold" gutterBottom>
-                    {feature.title}
-                  </Typography>
-                  <Typography variant="body1" color="text.secondary">
-                    {feature.description}
-                  </Typography>
-                </Card>
-              </Grid>
+              <Card
+                key={index}
+                elevation={3}
+                sx={{
+                  minWidth: 300,
+                  maxWidth: 320,
+                  p: 4,
+                  textAlign: 'center',
+                  borderRadius: 3,
+                  transition: 'transform 0.3s, box-shadow 0.3s',
+                  '&:hover': {
+                    transform: 'translateY(-8px)',
+                    boxShadow: 6,
+                  },
+                }}
+              >
+                <Box sx={{ color: 'primary.main', mb: 3 }}>{feature.icon}</Box>
+                <Typography variant="h6" fontWeight="bold" gutterBottom color="primary">
+                  {feature.title}
+                </Typography>
+                <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.7 }}>
+                  {feature.description}
+                </Typography>
+              </Card>
             ))}
-          </Grid>
+          </Box>
+        </Container>
+      </Box>
+
+      {/* Stakeholder Benefits Section */}
+      <Box sx={{ py: 10, bgcolor: '#f5f5f5' }}>
+        <Container maxWidth="lg">
+          <Typography variant="h3" fontWeight="bold" textAlign="center" gutterBottom>
+            Benefits for Every Stakeholder
+          </Typography>
+          <Typography variant="h6" textAlign="center" color="text.secondary" sx={{ mb: 6 }}>
+            Creating value across the entire education ecosystem
+          </Typography>
+          
+          <Box sx={{ display: 'flex', gap: 4, flexWrap: 'wrap', justifyContent: 'center' }}>
+            <Card elevation={4} sx={{ p: 4, maxWidth: 380, bgcolor: 'white', borderRadius: 3, transition: 'transform 0.3s, box-shadow 0.3s', '&:hover': { transform: 'translateY(-8px)', boxShadow: 6 } }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+                <BusinessIcon sx={{ fontSize: 50, color: 'primary.main', mr: 2 }} />
+                <Typography variant="h5" fontWeight="bold" color="primary">
+                  Universities
+                </Typography>
+              </Box>
+              <Box sx={{ pl: 1 }}>
+                <Box sx={{ display: 'flex', alignItems: 'flex-start', mb: 2 }}>
+                  <CheckCircleIcon sx={{ color: 'success.main', mr: 1.5, mt: 0.5 }} />
+                  <Typography variant="body1">Eliminate re-verification costs forever</Typography>
+                </Box>
+                <Box sx={{ display: 'flex', alignItems: 'flex-start', mb: 2 }}>
+                  <CheckCircleIcon sx={{ color: 'success.main', mr: 1.5, mt: 0.5 }} />
+                  <Typography variant="body1">Protect institutional credibility from fraud</Typography>
+                </Box>
+                <Box sx={{ display: 'flex', alignItems: 'flex-start', mb: 2 }}>
+                  <CheckCircleIcon sx={{ color: 'success.main', mr: 1.5, mt: 0.5 }} />
+                  <Typography variant="body1">Maintain verified alumni connections</Typography>
+                </Box>
+                <Box sx={{ display: 'flex', alignItems: 'flex-start' }}>
+                  <CheckCircleIcon sx={{ color: 'success.main', mr: 1.5, mt: 0.5 }} />
+                  <Typography variant="body1">Lead the digital transformation</Typography>
+                </Box>
+              </Box>
+            </Card>
+            
+            <Card elevation={4} sx={{ p: 4, maxWidth: 380, bgcolor: 'white', borderRadius: 3, transition: 'transform 0.3s, box-shadow 0.3s', '&:hover': { transform: 'translateY(-8px)', boxShadow: 6 } }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+                <SchoolIcon sx={{ fontSize: 50, color: 'primary.main', mr: 2 }} />
+                <Typography variant="h5" fontWeight="bold" color="primary">
+                  Students
+                </Typography>
+              </Box>
+              <Box sx={{ pl: 1 }}>
+                <Box sx={{ display: 'flex', alignItems: 'flex-start', mb: 2 }}>
+                  <CheckCircleIcon sx={{ color: 'success.main', mr: 1.5, mt: 0.5 }} />
+                  <Typography variant="body1">Portable credentials you own forever</Typography>
+                </Box>
+                <Box sx={{ display: 'flex', alignItems: 'flex-start', mb: 2 }}>
+                  <CheckCircleIcon sx={{ color: 'success.main', mr: 1.5, mt: 0.5 }} />
+                  <Typography variant="body1">Comprehensive verified academic profile</Typography>
+                </Box>
+                <Box sx={{ display: 'flex', alignItems: 'flex-start', mb: 2 }}>
+                  <CheckCircleIcon sx={{ color: 'success.main', mr: 1.5, mt: 0.5 }} />
+                  <Typography variant="body1">Share credentials instantly with anyone</Typography>
+                </Box>
+                <Box sx={{ display: 'flex', alignItems: 'flex-start' }}>
+                  <CheckCircleIcon sx={{ color: 'success.main', mr: 1.5, mt: 0.5 }} />
+                  <Typography variant="body1">No more transcript request delays</Typography>
+                </Box>
+              </Box>
+            </Card>
+            
+            <Card elevation={4} sx={{ p: 4, maxWidth: 380, bgcolor: 'white', borderRadius: 3, transition: 'transform 0.3s, box-shadow 0.3s', '&:hover': { transform: 'translateY(-8px)', boxShadow: 6 } }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+                <VerifiedUserIcon sx={{ fontSize: 50, color: 'primary.main', mr: 2 }} />
+                <Typography variant="h5" fontWeight="bold" color="primary">
+                  Employers
+                </Typography>
+              </Box>
+              <Box sx={{ pl: 1 }}>
+                <Box sx={{ display: 'flex', alignItems: 'flex-start', mb: 2 }}>
+                  <CheckCircleIcon sx={{ color: 'success.main', mr: 1.5, mt: 0.5 }} />
+                  <Typography variant="body1">Instant credential verification</Typography>
+                </Box>
+                <Box sx={{ display: 'flex', alignItems: 'flex-start', mb: 2 }}>
+                  <CheckCircleIcon sx={{ color: 'success.main', mr: 1.5, mt: 0.5 }} />
+                  <Typography variant="body1">100% fraud prevention</Typography>
+                </Box>
+                <Box sx={{ display: 'flex', alignItems: 'flex-start', mb: 2 }}>
+                  <CheckCircleIcon sx={{ color: 'success.main', mr: 1.5, mt: 0.5 }} />
+                  <Typography variant="body1">Faster hiring decisions</Typography>
+                </Box>
+                <Box sx={{ display: 'flex', alignItems: 'flex-start' }}>
+                  <CheckCircleIcon sx={{ color: 'success.main', mr: 1.5, mt: 0.5 }} />
+                  <Typography variant="body1">No manual verification processes</Typography>
+                </Box>
+              </Box>
+            </Card>
+          </Box>
         </Container>
       </Box>
 
@@ -541,7 +574,7 @@ const LandingPage = () => {
           </Typography>
 
           <Grid container spacing={4}>
-            {/* {pricingPlans.map((plan, index) => (
+            {pricingPlans.map((plan, index) => (
               <Grid item xs={12} md={4} key={index}>
                 <Card
                   elevation={plan.highlighted ? 8 : 2}
@@ -555,18 +588,24 @@ const LandingPage = () => {
                     '&:hover': { transform: plan.highlighted ? 'scale(1.08)' : 'scale(1.03)' },
                   }}
                 >
-                  {plan.highlighted && (
-                    <Chip
-                      label="MOST POPULAR"
-                      color="primary"
-                      sx={{
-                        position: 'absolute',
-                        top: 20,
-                        right: 20,
-                        fontWeight: 'bold',
-                      }}
-                    />
-                  )}
+                  {/* {plan.highlighted && (
+                    // <Box
+                    //   sx={{
+                    //     position: 'absolute',
+                    //     top: 20,
+                    //     right: 20,
+                    //     fontWeight: 'bold',
+                    //     bgcolor: 'primary.main',
+                    //     color: 'white',
+                    //     px: 2,
+                    //     py: 1,
+                    //     borderRadius: 1,
+                    //     fontSize: '0.875rem',
+                    //   }}
+                    // >
+                    //   MOST POPULAR
+                    // </Box>
+                  )} */}
                   <CardContent sx={{ p: 4 }}>
                     <Typography variant="h4" fontWeight="bold" gutterBottom>
                       {plan.name}
@@ -577,14 +616,14 @@ const LandingPage = () => {
                           Custom
                         </Typography>
                       ) : (
-                        <>
+                        <Box>
                           <Typography variant="h3" fontWeight="bold" color="primary" component="span">
                             ${plan.price}
                           </Typography>
                           <Typography variant="h6" color="text.secondary" component="span">
                             /{plan.period}
                           </Typography>
-                        </>
+                        </Box>
                       )}
                     </Box>
                     <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
@@ -606,7 +645,7 @@ const LandingPage = () => {
                       onClick={() => navigate('/register')}
                       sx={
                         plan.highlighted
-                          ? { background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }
+                          ? { background: 'linear-gradient(135deg, #0016AA 0%, #3345C0 100%)' }
                           : {}
                       }
                     >
@@ -615,7 +654,7 @@ const LandingPage = () => {
                   </CardContent>
                 </Card>
               </Grid>
-            ))} */}
+            ))}
           </Grid>
         </Container>
       </Box>
@@ -629,18 +668,17 @@ const LandingPage = () => {
                 About FARO
               </Typography>
               <Typography variant="body1" paragraph color="text.secondary" sx={{ fontSize: '1.1rem' }}>
-                FARO is a cutting-edge blockchain-based certificate management platform designed to revolutionize
-                how educational institutions issue, manage, and verify digital certificates.
+                FARO is revolutionizing trust infrastructure for higher education. We're building the foundation for 
+                verifiable credentials that empowers universities to lead the digital transformation, not be left behind.
               </Typography>
               <Typography variant="body1" paragraph color="text.secondary" sx={{ fontSize: '1.1rem' }}>
-                Built on the secure Polygon blockchain network, FARO ensures that every certificate is
-                tamper-proof, permanently verifiable, and globally accessible. Our platform empowers institutions
-                to move beyond traditional paper certificates and embrace the future of credential verification.
+                This shift is happening with or without universities. FARO lets them lead it. Built on W3C, Polygon, 
+                and EUDI frameworks with production-ready technology, we're aligned with global standards including 
+                the EU's rollout of standardized wallets for verifiable credentials.
               </Typography>
               <Typography variant="body1" paragraph color="text.secondary" sx={{ fontSize: '1.1rem' }}>
-                With FARO, students can easily access, download, and share their achievements with employers,
-                educational institutions, and on professional networks like LinkedIn, all while maintaining
-                the highest levels of security and authenticity.
+                FARO is sold to universities, adopted by students, and used by employers. By empowering students 
+                with portable, verified credentials, universities create a network effect that benefits all stakeholders.
               </Typography>
             </Grid>
             <Grid item xs={12} md={6}>
@@ -648,7 +686,7 @@ const LandingPage = () => {
                 elevation={4}
                 sx={{
                   p: 4,
-                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                  background: 'linear-gradient(135deg, #0016AA 0%, #3345C0 100%)',
                   color: 'white',
                   borderRadius: 3,
                 }}
@@ -657,142 +695,115 @@ const LandingPage = () => {
                   Our Mission
                 </Typography>
                 <Typography variant="body1" paragraph sx={{ fontSize: '1.1rem' }}>
-                  To provide secure, accessible, and verifiable digital credentials that empower learners
-                  and institutions worldwide.
+                  To provide comprehensive trust infrastructure that eliminates fraud, reduces costs, and 
+                  empowers students with lifetime-portable credentials verified on the blockchain.
                 </Typography>
                 <Divider sx={{ my: 3, bgcolor: 'rgba(255,255,255,0.3)' }} />
                 <Typography variant="h4" fontWeight="bold" gutterBottom>
                   Our Vision
                 </Typography>
                 <Typography variant="body1" sx={{ fontSize: '1.1rem' }}>
-                  To become the global standard for blockchain-based credential verification, making
-                  certificate fraud a thing of the past.
+                  To become the global standard for verifiable academic credentials, where universities 
+                  lead the digital transformation and students own their verified achievements forever.
                 </Typography>
               </Paper>
             </Grid>
           </Grid>
+          
+          {/* Market Context Section */}
+          <Box sx={{ mt: 8, p: 5, bgcolor: '#f5f5f5', borderRadius: 3 }}>
+            <Typography variant="h4" fontWeight="bold" textAlign="center" gutterBottom>
+              The Moment is Now
+            </Typography>
+            <Typography variant="body1" textAlign="center" color="text.secondary" sx={{ mb: 5, fontSize: '1.1rem', maxWidth: 900, mx: 'auto' }}>
+              The technological and regulatory infrastructure for verifiable credentials is mature and being adopted globally. 
+              The question is whether universities will lead this transformation or be left behind.
+            </Typography>
+            <Box sx={{ display: 'flex', gap: 3, flexWrap: 'wrap', justifyContent: 'center' }}>
+              <Card elevation={3} sx={{ p: 4, maxWidth: 350, textAlign: 'center', borderRadius: 3, transition: 'transform 0.3s, box-shadow 0.3s', '&:hover': { transform: 'translateY(-5px)', boxShadow: 5 } }}>
+                <CheckCircleIcon sx={{ fontSize: 60, color: 'success.main', mb: 2 }} />
+                <Typography variant="h6" fontWeight="bold" gutterBottom>
+                  Technology Ready
+                </Typography>
+                <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.7 }}>
+                  W3C, Polygon, and EUDI frameworks provide production-ready infrastructure
+                </Typography>
+              </Card>
+              <Card elevation={3} sx={{ p: 4, maxWidth: 350, textAlign: 'center', borderRadius: 3, transition: 'transform 0.3s, box-shadow 0.3s', '&:hover': { transform: 'translateY(-5px)', boxShadow: 5 } }}>
+                <CheckCircleIcon sx={{ fontSize: 60, color: 'success.main', mb: 2 }} />
+                <Typography variant="h6" fontWeight="bold" gutterBottom>
+                  Regulatory Support
+                </Typography>
+                <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.7 }}>
+                  EU rolling out standardized wallets for verifiable credentials across member states
+                </Typography>
+              </Card>
+              <Card elevation={3} sx={{ p: 4, maxWidth: 350, textAlign: 'center', borderRadius: 3, transition: 'transform 0.3s, box-shadow 0.3s', '&:hover': { transform: 'translateY(-5px)', boxShadow: 5 } }}>
+                <CheckCircleIcon sx={{ fontSize: 60, color: 'success.main', mb: 2 }} />
+                <Typography variant="h6" fontWeight="bold" gutterBottom>
+                  Market Demand
+                </Typography>
+                <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.7 }}>
+                  Credential fraud crisis drives urgency for verifiable, tamper-proof solutions
+                </Typography>
+              </Card>
+            </Box>
+          </Box>
         </Container>
       </Box>
 
-      {/* Contact Us Section */}
-      <Box id="contact" sx={{ py: 10, bgcolor: '#f8f9fa' }}>
-        <Container maxWidth="lg">
-          <Typography variant="h3" fontWeight="bold" textAlign="center" gutterBottom>
-            Get In Touch
-          </Typography>
-          <Typography variant="h6" textAlign="center" color="text.secondary" sx={{ mb: 6 }}>
-            Have questions? We'd love to hear from you.
-          </Typography>
-
-          <Grid container spacing={4}>
-            <Grid item xs={12} md={6}>
-              <Card elevation={2} sx={{ p: 4, height: '100%' }}>
-                <Typography variant="h5" fontWeight="bold" gutterBottom>
-                  Contact Information
-                </Typography>
-                <Box sx={{ mt: 3 }}>
-                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
-                    <EmailIcon sx={{ fontSize: 30, color: 'primary.main', mr: 2 }} />
-                    <Box>
-                      <Typography variant="subtitle2" color="text.secondary">
-                        Email
-                      </Typography>
-                      <Typography variant="body1" fontWeight="bold">
-                        contact@faro.education
-                      </Typography>
-                    </Box>
-                  </Box>
-                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
-                    <PhoneIcon sx={{ fontSize: 30, color: 'primary.main', mr: 2 }} />
-                    <Box>
-                      <Typography variant="subtitle2" color="text.secondary">
-                        Phone
-                      </Typography>
-                      <Typography variant="body1" fontWeight="bold">
-                        +1 (555) 123-4567
-                      </Typography>
-                    </Box>
-                  </Box>
-                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
-                    <LocationOnIcon sx={{ fontSize: 30, color: 'primary.main', mr: 2 }} />
-                    <Box>
-                      <Typography variant="subtitle2" color="text.secondary">
-                        Address
-                      </Typography>
-                      <Typography variant="body1" fontWeight="bold">
-                        123 Education Street, Tech City, TC 12345
-                      </Typography>
-                    </Box>
-                  </Box>
-                  <Divider sx={{ my: 3 }} />
-                  <Typography variant="subtitle2" color="text.secondary" gutterBottom>
-                    Follow Us
-                  </Typography>
-                  <Box sx={{ display: 'flex', gap: 2, mt: 2 }}>
-                    <IconButton
-                      sx={{ bgcolor: '#0077b5', color: 'white', '&:hover': { bgcolor: '#006097' } }}
-                    >
-                      <LinkedInIcon />
-                    </IconButton>
-                    <IconButton
-                      sx={{ bgcolor: '#1DA1F2', color: 'white', '&:hover': { bgcolor: '#0d8bd9' } }}
-                    >
-                      <TwitterIcon />
-                    </IconButton>
-                    <IconButton
-                      sx={{ bgcolor: '#4267B2', color: 'white', '&:hover': { bgcolor: '#365899' } }}
-                    >
-                      <FacebookIcon />
-                    </IconButton>
-                  </Box>
-                </Box>
-              </Card>
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <Card elevation={2} sx={{ p: 4, height: '100%' }}>
-                <Typography variant="h5" fontWeight="bold" gutterBottom>
-                  Send Us a Message
-                </Typography>
-                <Box component="form" sx={{ mt: 3 }}>
-                  <TextField
-                    fullWidth
-                    label="Your Name"
-                    variant="outlined"
-                    sx={{ mb: 2 }}
-                  />
-                  <TextField
-                    fullWidth
-                    label="Email Address"
-                    variant="outlined"
-                    type="email"
-                    sx={{ mb: 2 }}
-                  />
-                  <TextField
-                    fullWidth
-                    label="Subject"
-                    variant="outlined"
-                    sx={{ mb: 2 }}
-                  />
-                  <TextField
-                    fullWidth
-                    label="Message"
-                    variant="outlined"
-                    multiline
-                    rows={4}
-                    sx={{ mb: 2 }}
-                  />
-                  <Button
-                    variant="contained"
-                    size="large"
-                    fullWidth
-                    sx={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}
-                  >
-                    Send Message
-                  </Button>
-                </Box>
-              </Card>
-            </Grid>
-          </Grid>
+      {/* CTA Section */}
+      <Box id="contact" sx={{ py: 10, background: 'linear-gradient(135deg, #0016AA 0%, #3345C0 100%)', color: 'white' }}>
+        <Container maxWidth="md">
+          <Box sx={{ textAlign: 'center' }}>
+            <Typography variant="h3" fontWeight="bold" gutterBottom>
+              Lead the Digital Transformation
+            </Typography>
+            <Typography variant="h6" sx={{ mb: 4, opacity: 0.95 }}>
+              This shift is happening with or without universities. FARO lets them lead it.
+            </Typography>
+            <Typography variant="body1" sx={{ mb: 5, fontSize: '1.1rem', maxWidth: 700, mx: 'auto' }}>
+              Join forward-thinking institutions that are empowering their students with portable, 
+              verified credentials while eliminating fraud and verification costs.
+            </Typography>
+            <Box sx={{ display: 'flex', gap: 3, justifyContent: 'center', flexWrap: 'wrap' }}>
+              <Button
+                variant="contained"
+                size="large"
+                onClick={() => navigate('/register')}
+                sx={{
+                  bgcolor: 'white',
+                  color: 'primary.main',
+                  px: 5,
+                  py: 2,
+                  fontSize: '1.1rem',
+                  fontWeight: 600,
+                  '&:hover': { bgcolor: 'grey.100', transform: 'translateY(-2px)' },
+                  transition: 'all 0.3s',
+                }}
+              >
+                Get Started Today
+              </Button>
+              <Button
+                variant="outlined"
+                size="large"
+                onClick={() => navigate('/login')}
+                sx={{
+                  borderColor: 'white',
+                  borderWidth: 2,
+                  color: 'white',
+                  px: 5,
+                  py: 2,
+                  fontSize: '1.1rem',
+                  fontWeight: 600,
+                  '&:hover': { borderColor: 'white', borderWidth: 2, bgcolor: 'rgba(255,255,255,0.15)', transform: 'translateY(-2px)' },
+                  transition: 'all 0.3s',
+                }}
+              >
+                Sign In
+              </Button>
+            </Box>
+          </Box>
         </Container>
       </Box>
 
@@ -802,13 +813,11 @@ const LandingPage = () => {
           <Grid container spacing={4}>
             <Grid item xs={12} md={4}>
               <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                <SchoolIcon sx={{ fontSize: 40, mr: 1 }} />
-                <Typography variant="h5" fontWeight="bold">
-                  FARO
-                </Typography>
+                <Logo height={55} sx={{ filter: 'brightness(0) invert(1)' }} />
               </Box>
               <Typography variant="body2" color="grey.400">
-                Blockchain-powered certificate management for the modern age. Secure, verifiable, and accessible.
+                Trust infrastructure for higher education. Verifiable credentials that empower students, 
+                trusted by universities, used by employers.
               </Typography>
             </Grid>
             <Grid item xs={12} md={4}>

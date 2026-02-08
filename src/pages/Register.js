@@ -12,6 +12,7 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import Logo from '../components/Logo';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -67,9 +68,12 @@ const Register = () => {
       >
         <Paper elevation={3} sx={{ p: 4, width: '100%' }}>
           <Box sx={{ mb: 3, textAlign: 'center' }}>
-            <Typography variant="h4" component="h1" gutterBottom fontWeight="bold">
-              FARO
-            </Typography>
+            <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2, alignItems: 'center', gap: 1 }}>
+              <Logo height={70} />
+              {/* <Typography variant="h4" component="h1" fontWeight="bold" color="primary">
+                FARO
+              </Typography> */}
+            </Box>
             <Typography variant="h6" color="text.secondary" gutterBottom>
               Register Your Institution
             </Typography>

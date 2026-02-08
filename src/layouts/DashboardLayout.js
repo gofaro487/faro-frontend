@@ -29,6 +29,7 @@ import {
   Logout,
 } from '@mui/icons-material';
 import { useAuth } from '../context/AuthContext';
+import Logo from '../components/Logo';
 
 const drawerWidth = 240;
 
@@ -68,9 +69,12 @@ const DashboardLayout = () => {
   const drawer = (
     <div>
       <Toolbar>
-        <Typography variant="h6" noWrap component="div" fontWeight="bold">
-          FARO
-        </Typography>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          <Logo height={70} />
+          {/* <Typography variant="h6" noWrap component="div" fontWeight="bold" color="primary">
+            FARO
+          </Typography> */}
+        </Box>
       </Toolbar>
       <Divider />
       <List>

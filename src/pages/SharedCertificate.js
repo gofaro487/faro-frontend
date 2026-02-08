@@ -96,7 +96,7 @@ const SharedCertificate = () => {
       <Box
         sx={{
           minHeight: '100vh',
-          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+          background: 'linear-gradient(135deg, #0016AA 0%, #3345C0 100%)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -128,7 +128,7 @@ const SharedCertificate = () => {
     <Box
       sx={{
         minHeight: '100vh',
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        background: 'linear-gradient(135deg, #0016AA 0%, #3345C0 100%)',
         py: 4,
       }}
     >
@@ -137,7 +137,7 @@ const SharedCertificate = () => {
           {/* Header */}
           <Box
             sx={{
-              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              background: 'linear-gradient(135deg, #0016AA 0%, #3345C0 100%)',
               color: 'white',
               py: 4,
               px: 3,
@@ -287,7 +287,7 @@ const SharedCertificate = () => {
                   onClick={handleViewCertificate}
                   sx={{
                     py: 1.5,
-                    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                    background: 'linear-gradient(135deg, #0016AA 0%, #3345C0 100%)',
                   }}
                 >
                   View Certificate PDF

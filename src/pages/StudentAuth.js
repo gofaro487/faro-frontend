@@ -19,6 +19,7 @@ import { studentAuthService } from '../services/studentAuthService';
 import SchoolIcon from '@mui/icons-material/School';
 import LockIcon from '@mui/icons-material/Lock';
 import LoginIcon from '@mui/icons-material/Login';
+import Logo from '../components/Logo';
 
 const StudentAuth = () => {
   const [searchParams] = useSearchParams();
@@ -143,7 +144,7 @@ const StudentAuth = () => {
     <Box
       sx={{
         minHeight: '100vh',
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        background: 'linear-gradient(135deg, #0016AA 0%, #3345C0 100%)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -160,7 +161,9 @@ const StudentAuth = () => {
         >
           {/* Header */}
           <Box sx={{ textAlign: 'center', mb: 4 }}>
-            <SchoolIcon sx={{ fontSize: 60, color: '#667eea', mb: 2 }} />
+            <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
+              <Logo height={60} />
+            </Box>
             <Typography variant="h4" fontWeight="bold" color="primary" gutterBottom>
               FARO Student Portal
             </Typography>
@@ -216,7 +219,7 @@ const StudentAuth = () => {
                 disabled={loading || !email}
                 sx={{
                   py: 1.5,
-                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                  background: 'linear-gradient(135deg, #0016AA 0%, #3345C0 100%)',
                 }}
               >
                 {loading ? <CircularProgress size={24} color="inherit" /> : 'Continue'}
@@ -290,7 +293,7 @@ const StudentAuth = () => {
                     disabled={loading || !password || !confirmPassword}
                     sx={{
                       py: 1.5,
-                      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                      background: 'linear-gradient(135deg, #0016AA 0%, #3345C0 100%)',
                     }}
                   >
                     {loading ? <CircularProgress size={24} color="inherit" /> : 'Create Password & Login'}
@@ -327,7 +330,7 @@ const StudentAuth = () => {
                     disabled={loading || !password}
                     sx={{
                       py: 1.5,
-                      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                      background: 'linear-gradient(135deg, #0016AA 0%, #3345C0 100%)',
                     }}
                   >
                     {loading ? <CircularProgress size={24} color="inherit" /> : 'Login'}

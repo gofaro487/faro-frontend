@@ -27,6 +27,7 @@ import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import SearchIcon from '@mui/icons-material/Search';
 import ErrorIcon from '@mui/icons-material/Error';
 import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
+import Logo from '../components/Logo';
 
 const VerifyCertificate = () => {
   const [searchParams] = useSearchParams();
@@ -121,7 +122,7 @@ const VerifyCertificate = () => {
     <Box
       sx={{
         minHeight: '100vh',
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        background: 'linear-gradient(135deg, #0016AA 0%, #3345C0 100%)',
         py: 4,
       }}
     >
@@ -130,14 +131,16 @@ const VerifyCertificate = () => {
           {/* Header */}
           <Box
             sx={{
-              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              background: 'linear-gradient(135deg, #0016AA 0%, #3345C0 100%)',
               color: 'white',
               py: 4,
               px: 3,
               textAlign: 'center',
             }}
           >
-            <QrCodeScannerIcon sx={{ fontSize: 60, mb: 2 }} />
+            <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
+              <Logo height={60} sx={{ filter: 'brightness(0) invert(1)' }} />
+            </Box>
             <Typography variant="h4" fontWeight="bold" gutterBottom>
               Verify Certificate
             </Typography>
@@ -176,7 +179,7 @@ const VerifyCertificate = () => {
                     disabled={loading || !certificateId}
                     sx={{
                       minWidth: 120,
-                      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                      background: 'linear-gradient(135deg, #0016AA 0%, #3345C0 100%)',
                     }}
                   >
                     {loading ? 'Verifying...' : 'Verify'}
@@ -339,7 +342,7 @@ const VerifyCertificate = () => {
                       onClick={handleViewCertificate}
                       sx={{
                         py: 1.5,
-                        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                        background: 'linear-gradient(135deg, #0016AA 0%, #3345C0 100%)',
                       }}
                     >
                       View Certificate PDF

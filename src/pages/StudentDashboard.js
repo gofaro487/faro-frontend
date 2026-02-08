@@ -32,6 +32,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import VerifiedIcon from '@mui/icons-material/Verified';
 import ContentCopy from '@mui/icons-material/ContentCopy';
 import ReceiptIcon from '@mui/icons-material/Receipt';
+import Logo from '../components/Logo';
 
 const StudentDashboard = () => {
   const navigate = useNavigate();
@@ -278,7 +279,7 @@ Powered by FARO - Blockchain Certificate Management System
         <Box sx={{ mb: 4, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <Box>
             <Typography variant="h4" fontWeight="bold" gutterBottom sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              <SchoolIcon fontSize="large" color="primary" />
+              <Logo height={70} />
               My Certificates
             </Typography>
             <Typography variant="body1" color="textSecondary">
