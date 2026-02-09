@@ -22,12 +22,15 @@ import {
   Button,
   Grid,
   Divider,
+  Snackbar,
+  Alert,
 } from '@mui/material';
 import {
   Visibility as VisibilityIcon,
   Download as DownloadIcon,
   CheckCircle as CheckCircleIcon,
   PictureAsPdf as PictureAsPdfIcon,
+  ContentCopy as ContentCopyIcon,
 } from '@mui/icons-material';
 import { useAuth } from '../context/AuthContext';
 import certificateService from '../services/certificateService';
@@ -42,6 +45,8 @@ const Certificates = () => {
   const [totalCertificates, setTotalCertificates] = useState(0);
   const [selectedCertificate, setSelectedCertificate] = useState(null);
   const [openDialog, setOpenDialog] = useState(false);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
 
   useEffect(() => {
     fetchCertificates();
@@ -134,6 +139,22 @@ const Certificates = () => {
     }
   };
 
+  const handleCopyHash = async (hash, type = 'Transaction') => {
+    try {
+      await navigator.clipboard.writeText(hash);
+      setSnackbarMessage(`${type} hash copied to clipboard!`);
+      setSnackbarOpen(true);
+    } catch (error) {
+      console.error('Failed to copy:', error);
+      setSnackbarMessage('Failed to copy hash');
+      setSnackbarOpen(true);
+    }
+  };
+
+  const handleCloseSnackbar = () => {
+    setSnackbarOpen(false);
+  };
+
   return (
     <Container maxWidth="lg">
       <Box sx={{ mb: 4 }}>
@@ -154,6 +175,7 @@ const Certificates = () => {
                 <TableCell>Course</TableCell>
                 <TableCell>Grade</TableCell>
                 <TableCell>Issue Date</TableCell>
+                <TableCell>Transaction Hash</TableCell>
                 <TableCell>Status</TableCell>
                 <TableCell align="right">Actions</TableCell>
               </TableRow>
@@ -161,13 +183,13 @@ const Certificates = () => {
             <TableBody>
               {loading ? (
                 <TableRow>
-                  <TableCell colSpan={6} align="center">
+                  <TableCell colSpan={7} align="center">
                     <CircularProgress />
                   </TableCell>
                 </TableRow>
               ) : certificates.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={6} align="center">
+                  <TableCell colSpan={7} align="center">
                     <Typography color="text.secondary">No certificates found</Typography>
                   </TableCell>
                 </TableRow>
@@ -180,6 +202,40 @@ const Certificates = () => {
                       <Chip label={certificate.grade} color="primary" size="small" />
                     </TableCell>
                     <TableCell>{formatDate(certificate.issueDate)}</TableCell>
+                    <TableCell>
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                        <Tooltip title={certificate.transactionHash || 'N/A'}>
+                          <Typography 
+                            variant="body2" 
+                            sx={{ 
+                              fontFamily: 'monospace', 
+                              fontSize: '0.75rem',
+                              maxWidth: '150px',
+                              overflow: 'hidden',
+                              textOverflow: 'ellipsis',
+                              whiteSpace: 'nowrap',
+                              cursor: 'pointer'
+                            }}
+                          >
+                            {certificate.transactionHash ? 
+                              `${certificate.transactionHash.substring(0, 10)}...${certificate.transactionHash.substring(certificate.transactionHash.length - 8)}` 
+                              : 'N/A'
+                            }
+                          </Typography>
+                        </Tooltip>
+                        {certificate.transactionHash && (
+                          <Tooltip title="Copy transaction hash">
+                            <IconButton
+                              size="small"
+                              onClick={() => handleCopyHash(certificate.transactionHash, 'Transaction')}
+                              sx={{ padding: '2px' }}
+                            >
+                              <ContentCopyIcon sx={{ fontSize: '0.9rem' }} />
+                            </IconButton>
+                          </Tooltip>
+                        )}
+                      </Box>
+                    </TableCell>
                     <TableCell>
                       <Chip
                         icon={<CheckCircleIcon />}
@@ -319,20 +375,44 @@ const Certificates = () => {
                   <Divider sx={{ mb: 2 }} />
                 </Grid>
                 <Grid item xs={12}>
-                  <Typography variant="body2" color="text.secondary">
-                    Transaction Hash
-                  </Typography>
-                  <Typography variant="body2" sx={{ fontFamily: 'monospace', wordBreak: 'break-all' }}>
-                    {selectedCertificate.transactionHash}
-                  </Typography>
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start' }}>
+                    <Box sx={{ flex: 1 }}>
+                      <Typography variant="body2" color="text.secondary">
+                        Transaction Hash
+                      </Typography>
+                      <Typography variant="body2" sx={{ fontFamily: 'monospace', wordBreak: 'break-all' }}>
+                        {selectedCertificate.transactionHash}
+                      </Typography>
+                    </Box>
+                    <Tooltip title="Copy transaction hash">
+                      <IconButton
+                        size="small"
+                        onClick={() => handleCopyHash(selectedCertificate.transactionHash, 'Transaction')}
+                      >
+                        <ContentCopyIcon fontSize="small" />
+                      </IconButton>
+                    </Tooltip>
+                  </Box>
                 </Grid>
                 <Grid item xs={12}>
-                  <Typography variant="body2" color="text.secondary">
-                    Certificate Hash
-                  </Typography>
-                  <Typography variant="body2" sx={{ fontFamily: 'monospace', wordBreak: 'break-all' }}>
-                    {selectedCertificate.certificateHash}
-                  </Typography>
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start' }}>
+                    <Box sx={{ flex: 1 }}>
+                      <Typography variant="body2" color="text.secondary">
+                        Certificate Hash
+                      </Typography>
+                      <Typography variant="body2" sx={{ fontFamily: 'monospace', wordBreak: 'break-all' }}>
+                        {selectedCertificate.certificateHash}
+                      </Typography>
+                    </Box>
+                    <Tooltip title="Copy certificate hash">
+                      <IconButton
+                        size="small"
+                        onClick={() => handleCopyHash(selectedCertificate.certificateHash, 'Certificate')}
+                      >
+                        <ContentCopyIcon fontSize="small" />
+                      </IconButton>
+                    </Tooltip>
+                  </Box>
                 </Grid>
               </Grid>
             </Box>
@@ -356,6 +436,18 @@ const Certificates = () => {
           </Button>
         </DialogActions>
       </Dialog>
+
+      {/* Snackbar for copy confirmation */}
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={3000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </Container>
   );
 };

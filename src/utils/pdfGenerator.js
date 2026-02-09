@@ -119,16 +119,15 @@ export const generateCertificatePDF = async (certificateData) => {
   doc.setTextColor(102, 126, 234);
   doc.text('🔗 BLOCKCHAIN VERIFIED', pageWidth / 2, blockchainY, { align: 'center' });
   
-  doc.setFontSize(8);
+  doc.setFontSize(7);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(100, 100, 100);
   
   if (certificate?.transactionHash) {
-    doc.text(`Transaction: ${certificate.transactionHash.substring(0, 40)}...`, pageWidth / 2, blockchainY + 5, { align: 'center' });
-  }
-  
-  if (certificate?.certificateHash) {
-    doc.text(`Certificate Hash: ${certificate.certificateHash.substring(0, 40)}...`, pageWidth / 2, blockchainY + 10, { align: 'center' });
+    doc.text('Transaction Hash:', pageWidth / 2, blockchainY + 5, { align: 'center' });
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(6.5);
+    doc.text(certificate.transactionHash, pageWidth / 2, blockchainY + 9, { align: 'center' });
   }
 
   // Generate QR Code for verification
